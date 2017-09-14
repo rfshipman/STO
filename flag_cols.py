@@ -1,6 +1,9 @@
 from astropy.io import fits
 
 def add_flag_cols(infile):
+    #
+    #This task will add both a row column and a flag column to an existing FITS table (infile).
+    #
     print("reading FITS file: " , infile)
     fitsf=fits.open(infile)
     #get starting header to update and original columns
@@ -8,7 +11,7 @@ def add_flag_cols(infile):
     toupdate_hdr=fitsf[1].header.__copy__()
     orig_cols = fitsf[1].data.columns
     #
-    # Column Flag: Create a new column for a flag array to be added to the 
+    # Row Flag: Create a new column for an integration/row flag to be added to the 
     # existing FITS_rec
     #
     mcols = [] 
@@ -18,6 +21,7 @@ def add_flag_cols(infile):
     #
     # Column Flag: Create a new column for a flag array to be added to the 
     # existing FITS_rec
+    #
     ccols = [] 
     initarray = [0]
     ccols.append(fits.Column(name='CFLAG', format='1024J', array= initarray))
